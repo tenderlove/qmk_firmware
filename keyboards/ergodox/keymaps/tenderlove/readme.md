@@ -1,12 +1,27 @@
-# ErgoDox EZ Default Configuration
+# Tenderlove's layout
 
-## Changelog
+It's the Norman layout, but targeted for programming / Vim / web browsing.
 
-* Sep 22, 2016:
-  * Created a new key in layer 1 (bottom-corner key) that resets the EEPROM.
-* Feb 2, 2016 (V1.1): 
-  * Made the right-hand quote key double as Cmd/Win on hold. So you get ' when you tap it, " when you tap it with Shift, and Cmd or Win when you hold it. You can then use it as a modifier, or just press and hold it for a moment (and then let go) to send a single Cmd or Win keystroke (handy for opening the Start menu on Windows).
+## Building for Infinity
 
-This is what we ship with out of the factory. :) The image says it all:
+These are just notes to remind myself how to build the firmware:
 
-![Default](default_highres.png)
+Install on the left side
+
+```
+$ pwd
+/Users/aaron/git/qmk_firmware/keyboards/ergodox
+$ make infinity-tenderlove
+$ make infinity-tenderlove-dfu-util # This won't work, but you need the file it generates
+$ dfu-util -D ../../.build/ergodox_infinity_tenderlove.bin -d 1c11:b007
+```
+
+Install on the right side
+
+```
+$ make infinity-tenderlove MASTER=right
+$ make infinity-tenderlove-dfu-util MASTER=right
+$ dfu-util -D ../../.build/ergodox_infinity_tenderlove.bin -d 1c11:b007
+```
+
+Plug Right side in to the computer, plug the left side in to the right side
