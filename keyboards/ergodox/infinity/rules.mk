@@ -65,6 +65,7 @@ LED_ENABLE ?= yes
 LCD_BACKLIGHT_ENABLE ?= yes
 MIDI_ENABLE = no
 RGBLIGHT_ENABLE = no
+BACKLIGHT_ENABLE ?= yes
 
 ifndef QUANTUM_DIR
 	include ../../../Makefile
