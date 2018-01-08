@@ -125,6 +125,9 @@ enum quantum_keycodes {
     KC_ASUP,
     KC_ASDN,
     KC_ASRP,
+    KC_ASTG,
+    KC_ASON,
+    KC_ASOFF,
 
     // Audio on/off/toggle
     AU_ON,
@@ -152,8 +155,9 @@ enum quantum_keycodes {
 
     // Midi
 #if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
-    MI_ON,  // send midi notes when music mode is enabled
-    MI_OFF, // don't send midi notes when music mode is enabled
+    MI_ON,
+    MI_OFF,
+    MI_TOG,
 #endif
 
 #if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_ADVANCED))
@@ -376,26 +380,13 @@ enum quantum_keycodes {
 #endif // MIDI_ADVANCED
 
     // Backlight functionality
-    BL_0,
-    BL_1,
-    BL_2,
-    BL_3,
-    BL_4,
-    BL_5,
-    BL_6,
-    BL_7,
-    BL_8,
-    BL_9,
-    BL_10,
-    BL_11,
-    BL_12,
-    BL_13,
-    BL_14,
-    BL_15,
+    BL_ON,
+    BL_OFF,
     BL_DEC,
     BL_INC,
     BL_TOGG,
     BL_STEP,
+    BL_BRTG,
 
     // RGB functionality
     RGB_TOG,
@@ -421,6 +412,9 @@ enum quantum_keycodes {
 
     // Right shift, close paren
     KC_RSPC,
+
+    // Shift, Enter
+    KC_SFTENT,
 
     // Printing
     PRINT_ON,
@@ -571,9 +565,6 @@ enum quantum_keycodes {
 
 #define AG_SWAP MAGIC_SWAP_ALT_GUI
 #define AG_NORM MAGIC_UNSWAP_ALT_GUI
-
-#define BL_ON  BL_9
-#define BL_OFF BL_0
 
 // GOTO layer - 16 layers max
 // when:
