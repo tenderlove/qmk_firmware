@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define _______ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -19,11 +18,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, KC_NO, 	_______, _______, _______, _______, _______, KC_PPLS, KC_PMNS, KC_END,  KC_PGDN, KC_DOWN, _______, _______,
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)
 };
-
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        DDRB |= (1 << 2); PORTB &= ~(1 << 2);
-    } else {
-        DDRB &= ~(1 << 2); PORTB &= ~(1 << 2);
-    }
-}
