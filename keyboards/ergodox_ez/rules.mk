@@ -82,11 +82,16 @@ SWAP_HANDS_ENABLE= yes # Allow swapping hands of keyboard
 SLEEP_LED_ENABLE = no
 API_SYSEX_ENABLE = no
 RGBLIGHT_ENABLE = yes
+TEELOKB_ENABLE = yes   # enable the TeeloKB Raw HID protocol
 RGB_MATRIX_ENABLE = no # enable later
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), no)
   SRC += i2c_master.c
 endif
 
+ifeq ($(strip $(TEELOKB_ENABLE)), yes)
+  RAW_ENABLE = yes
+  SRC += teelokb_hid_protocol.c
+endif
 
 LAYOUTS = ergodox
