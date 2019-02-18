@@ -176,6 +176,9 @@ OptionParser.new do |opts|
     end
   end
 
+  opts.on("--enable", "Enable")   { commands << lambda { |kb| kb.enable } }
+  opts.on("--disable", "Disable") { commands << lambda { |kb| kb.disable } }
+
   opts.on("--json", "Output as JSON") { options[:json] = true }
   opts.on("--no-retry", "Do not automatically retry command in case of failure") {
     options[:retry] = false
