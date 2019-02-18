@@ -46,4 +46,10 @@ server.mount "/mode", ModeServlet
 server.mount "/", WEBrick::HTTPServlet::FileHandler, File.join(File.dirname(__FILE__), "public")
 
 trap("INT") { server.shutdown }
+
+Thread.new {
+  sleep 0.5
+  system "open http://localhost:1234"
+}
+
 server.start
