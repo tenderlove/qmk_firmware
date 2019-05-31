@@ -84,6 +84,7 @@ API_SYSEX_ENABLE = no
 RGBLIGHT_ENABLE = yes
 TEELOKB_ENABLE = yes   # enable the TeeloKB Raw HID protocol
 RGB_MATRIX_ENABLE = no # enable later
+DEBOUNCE_TYPE = eager_pr
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), no)
   SRC += i2c_master.c
