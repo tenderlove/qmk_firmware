@@ -19,11 +19,11 @@ endif
 
 ## System Changes
 
-Install `hidapi` and the `gel` Ruby gem.  On MacOS:
+Install `hidapi` and the `myhidapi` Ruby gem.  On MacOS:
 
 ```
 $ brew install hidapi
-$ gem install gel
+$ gem install myhidapi
 ```
 
 ## Running the control program
