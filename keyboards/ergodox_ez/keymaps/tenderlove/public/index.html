@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.js'></script>
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.css' />
+    <script>
+      $(document).ready(function() {
+        $(".color").spectrum({
+          color: "#f00",
+          change: function(color) {
+            var hsv = color.toHsv();
+            var h = hsv.h;
+            var s = Math.floor(hsv.s * 255);
+            var v = Math.floor(hsv.v * 255);
+
+            $.post("/hsv", { h: h, s: s, v: v });
+          }
+        });
+
+        $.get("/hsv", function(data) {
+          var hsv = data[0].hsv;
+          var h = hsv[0];
+          var s = Math.floor((hsv[1] / 255) * 100);
+          var v = Math.floor((hsv[2] / 255) * 100);
+          var str = "hsv(" + h + "," + s + "%," + v + "%)";
+          $(".color").spectrum("set", str);
+        });
+
+        $.get("/mode", function(data) {
+          var mode = data[0].mode;
+          $("form select").val(mode);
+
+          $("form select").change(function() {
+            $.post("/mode", { mode: $("form select").val() });
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="text-center mt-5">
+        <h2>Teelo Keyboard LED</h2>
+        <div>
+
+          <div class="row mt-5">
+            <div class="col">
+              <form>
+                <label for="select">LED Mode</label>
+                <select>
+                  <option value="1">Solid</option>
+                  <option value="2">Breathing 1</option>
+                  <option value="3">Breathing 2</option>
+                  <option value="4">Breathing 3</option>
+                  <option value="5">Breathing 4</option>
+                  <option value="6">Rainbow Mood 1</option>
+                  <option value="7">Rainbow Mood 2</option>
+                  <option value="8">Rainbow Mood 3</option>
+                  <option value="9">Rainbow Swirl 1</option>
+                  <option value="10">Rainbow Swirl 2</option>
+                  <option value="11">Rainbow Swirl 3</option>
+                  <option value="12">Rainbow Swirl 4</option>
+                  <option value="13">Rainbow Swirl 5</option>
+                  <option value="14">Rainbow Swirl 6</option>
+                  <option value="15">Snake 1</option>
+                  <option value="16">Snake 2</option>
+                  <option value="17">Snake 3</option>
+                  <option value="18">Snake 4</option>
+                  <option value="19">Snake 5</option>
+                  <option value="20">Snake 6</option>
+                  <option value="21">Knight 1</option>
+                  <option value="22">Knight 2</option>
+                  <option value="23">Knight 3</option>
+                  <option value="24">XMas</option>
+                  <option value="25">Gradient 1</option>
+                  <option value="26">Gradient 2</option>
+                  <option value="27">Gradient 3</option>
+                  <option value="28">Gradient 4</option>
+                  <option value="29">Gradient 5</option>
+                  <option value="30">Gradient 6</option>
+                  <option value="31">Gradient 7</option>
+                  <option value="32">Gradient 8</option>
+                  <option value="33">Gradient 9</option>
+                  <option value="34">Gradient 10</option>
+                  <option value="35">RGB Test</option>
+                </select>
+              </form>
+            </div>
+            <div class="col">
+              <input type='text' class="color"/>
+            </div>
+          </div>
+        </div>
+  </body>
+</html>
