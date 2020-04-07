@@ -168,6 +168,15 @@ OptionParser.new do |opts|
     end
   end
 
+  opts.on("--rgb=[RGB]", "Set or get RGB (comma separated)") do |v|
+    if v
+      commands << lambda { |kb| kb.setrgb(*v.split(",").map(&:to_i)) }
+    else
+      puts opts
+      exit(1)
+    end
+  end
+
   opts.on("--mode=[MODE]", "Set or get mode (1 through 36)") do |v|
     if v
       commands << lambda { |kb| kb.mode = v.to_i }
@@ -178,6 +187,7 @@ OptionParser.new do |opts|
 
   opts.on("--enable", "Enable")   { commands << lambda { |kb| kb.enable } }
   opts.on("--disable", "Disable") { commands << lambda { |kb| kb.disable } }
+  opts.on("--fork", "Fork: not working") { options[:fork] = true }
 
   opts.on("--json", "Output as JSON") { options[:json] = true }
   opts.on("--no-retry", "Do not automatically retry command in case of failure") {
@@ -194,23 +204,27 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-begin
-  kb = TeeloKB.open
-  commands.each { |cmd| cmd.call kb }
+def main args, options, commands, responses
+  begin
+    kb = TeeloKB.open
+    commands.each { |cmd| cmd.call kb }
 
-  if options[:json] && responses.length > 0
-    require 'json'
-    puts JSON.dump responses
-  else
-    responses.each do |res|
-      p res
+    if options[:json] && responses.length > 0
+      require 'json'
+      puts JSON.dump responses
+    else
+      responses.each do |res|
+        p res
+      end
+    end
+  rescue TeeloKB::Error => e
+    # This thing is really unreliable, so it retries by execing
+    if options[:retry] && options[:attempt] > 0
+      exec "ruby", __FILE__, "--attempt=#{options[:attempt] - 1}", *args
+    else
+      raise e
     end
   end
-rescue TeeloKB::Error => e
-  # This thing is really unreliable, so it retries by execing
-  if options[:retry] && options[:attempt] > 0
-    exec "ruby", __FILE__, "--attempt=#{options[:attempt] - 1}", *args
-  else
-    raise e
-  end
 end
+
+main args, options, commands, responses
