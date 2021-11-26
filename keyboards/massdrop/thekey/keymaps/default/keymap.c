@@ -18,8 +18,14 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
+    // One key copy / paste
     [0] = LAYOUT(
-        KC_TRNS,    LCMD(KC_C),    LCMD(KC_V)
+        MO(1),    LCMD(KC_C),    LCMD(KC_V)
+    ),
+
+    // Layer for "real" programmers. Enter everything in binary!
+    [1] = LAYOUT(
+        KC_TRNS,    KC_0,    KC_1
     ),
 
 };
