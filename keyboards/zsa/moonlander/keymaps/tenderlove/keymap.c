@@ -12,10 +12,6 @@ enum custom_keycodes {
   VRSN,
 };
 
-enum td_keycodes {
-    MDIA_RBRC
-};
-
 typedef enum {
   TAP_NONE,
   SINGLE_TAP,
